@@ -1,11 +1,11 @@
 # Deterministic Game Engine
 
-* S0: The initial state
-* Player(state): Specifies which player has the move in the state
-* Actions(state): Returns the set of legal moves in the state
-* Result(state, a): The transition model, which determines the result of a move
-* Terminal-test(s): true if game is over, false otherwise
-* Utility(s, p): A utility function to determine the numeric value for a game that ends in a terminal state (state) for player (p)
+* S0: The initial state (_s_)
+* Player(_s_): Specifies which player has the move in the state
+* Actions(_s_): Returns the set of legal moves in the state (_[a]_)
+* Result(_s_, _a_): The transition model, which determines the result of a move
+* Terminal-test(_s_): true if game is over, false otherwise
+* Utility(_s_, _p_): A utility function to determine the numeric value for a game that ends in a terminal state (_s_) for player (_p_).
 
 ```hs
 play game
