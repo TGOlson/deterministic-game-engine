@@ -17,7 +17,7 @@ $ cabal install
 Run tests
 
 ```
-$ cabal run unit-tests
+$ cabal test
 ```
 
 ### TODO
