@@ -19,3 +19,6 @@ Run tests
 ```
 $ cabal run unit-tests
 ```
+
+### TODO
+* Add haddock documentation

@@ -9,7 +9,7 @@ license:             MIT
 author:              Tyler Olson
 maintainer:          tydotg@gmail.com
 -- copyright:
--- category:
+category:            Game Engine
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
