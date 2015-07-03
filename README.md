@@ -7,7 +7,15 @@
 * Terminal-test(_s_): true if game is over, false otherwise
 * Utility(_s_, _p_): A utility function to determine the numeric value for a game that ends in a terminal state (_s_) for player (_p_).
 
-```hs
-play game
--- => 1
+
+Install dependencies
+
+```
+$ cabal install
+```
+
+Run tests
+
+```
+$ cabal run unit-tests
 ```
