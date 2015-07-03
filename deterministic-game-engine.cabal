@@ -6,13 +6,21 @@ version:             0.1.0.0
 synopsis:            Simple deterministic game engine
 description:         Game engine for creating deterministic games.
 license:             MIT
+license-file:        LICENSE
 author:              Tyler Olson
 maintainer:          tydotg@gmail.com
+homepage:            https://github.com/TGOlson/deterministic-game-engine
+bug-reports:         https://github.com/TGOlson/deterministic-game-engine/issues
 -- copyright:
 category:            Game Engine
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
+
+Source-repository head
+    Type:     git
+    Location: https://github.com/TGOlson/deterministic-game-engine
+
 
 library
   hs-source-dirs:      Src
