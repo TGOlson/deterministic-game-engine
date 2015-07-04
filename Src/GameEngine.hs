@@ -25,7 +25,7 @@ Simple generic example below. See the specs for a more detailed example.
 > initialState = GameState 0
 >
 > -- run the game engine until a terminal state is reached
-> play game
+> playSimple game
 
 -}
 
@@ -69,9 +69,7 @@ play :: Monad m => (GameState a -> m (GameState a)) -> GameEngine a b -> m Int
 -- Note: provided function should act as an identity only, and should not modify the game state.
 play f engine
   | performWithState isTerminal engine = return . performWithState getScore engine $ performWithState getPlayer engine
-  | otherwise = do
-    nextState <- f $ getNextState engine
-    play f $ GameEngine (actions engine) nextState
+  | otherwise = f (getNextState engine) >>= play f . GameEngine (actions engine)
 
 
 playSimple :: GameEngine a b -> Int
@@ -81,7 +79,7 @@ playSimple = runIdentity . play Identity
 
 playIO :: (GameState a -> IO ()) -> GameEngine a b -> IO Int
 -- ^ Run the provided game engine within an IO context until a terminal state is reached.
-playIO f = play (\x -> f x >> return x)
+playIO f = play (f >> return)
 
 
 getNextState :: GameEngine a b -> GameState a
