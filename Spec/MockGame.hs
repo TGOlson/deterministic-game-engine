@@ -50,7 +50,7 @@ makeGameActions numMoves = GameActions {
     getPlayer  = getNextPlayer,
 
     -- only valid move in this game is adding 1
-    getMoves   = const [Move 1],
+    getMove    = const $ Move 1,
     getResult  = \(GameState s) (Move x) -> GameState (s + x),
     isTerminal = isTerminalFn numMoves,
     getScore   = getGameScore
