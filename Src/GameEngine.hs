@@ -9,25 +9,10 @@ module GameEngine (
   ) where
 
 
-type Symbol = Char
-
-
-data GameState a = GameState a
-
-
-data Player = Player Char
-
-
-data Move a = Move a
-
-
-data GameActions a b = GameActions {
-    getPlayer  :: GameState a -> Player,
-    getMoves   :: GameState a -> [Move b],
-    getResult  :: GameState a -> Move b -> GameState a,
-    isTerminal :: GameState a -> Bool,
-    getScore   :: GameState a -> Player -> Int
-  }
+import Player
+import Move
+import GameState
+import GameActions
 
 
 data GameEngine a b = GameEngine {
