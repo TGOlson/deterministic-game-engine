@@ -1,7 +1,10 @@
 name:                deterministic-game-engine
 version:             0.1.0.0
 synopsis:            Simple deterministic game engine
-description:         Game engine for creating deterministic games.
+description:         Haskell library for creating simple deterministic games,
+                     such as tic-tac-toe. The engine requires a minimal set of
+                     actions related to the game, and then will run the game
+                     until a terminal state is reached.
 license:             MIT
 license-file:        LICENSE
 author:              Tyler Olson
@@ -26,15 +29,16 @@ library
                        GameEngine.Move,
                        GameEngine.Player
 
-  build-depends:       base >=4.0 && <5.0
+  build-depends:       base <5.0
   default-language:    Haskell2010
+
 
 test-suite test
   hs-source-dirs:      Spec
   main-is:             Spec.hs
   ghc-options:         -Wall
   type:                exitcode-stdio-1.0
-  build-depends:       base >=4.0 && <5.0,
+  build-depends:       base <5.0,
                        hspec >=2.1 && <2.2,
                        deterministic-game-engine
 
