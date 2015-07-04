@@ -33,8 +33,5 @@ Run tests
 $ cabal test
 ```
 
-### TODO
-* Add haddock documentation
-
 [travis-image]: https://travis-ci.org/TGOlson/deterministic-game-engine.svg?branch=master
 [travis-url]: https://travis-ci.org/TGOlson/deterministic-game-engine

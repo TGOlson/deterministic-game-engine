@@ -79,7 +79,7 @@ playSimple = runIdentity . play Identity
 
 playIO :: (GameState a -> IO ()) -> GameEngine a b -> IO Int
 -- ^ Run the provided game engine within an IO context until a terminal state is reached.
-playIO f = play (f >> return)
+playIO f = play (\x -> f x >> return x)
 
 
 getNextState :: GameEngine a b -> GameState a
