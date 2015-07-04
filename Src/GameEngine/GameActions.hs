@@ -1,9 +1,11 @@
-module GameActions where
+module GameEngine.GameActions (
+    GameActions(..)
+  ) where
 
 
-import Player
-import Move
-import GameState
+import GameEngine.Player
+import GameEngine.Move
+import GameEngine.GameState
 
 
 data GameActions a b = GameActions {

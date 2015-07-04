@@ -1,4 +1,7 @@
-module Player where
+module GameEngine.Player (
+    Symbol,
+    Player(..)
+  ) where
 
 
 type Symbol = Char
