@@ -5,6 +5,7 @@
 
 module MockGame (
     MockGame,
+    MockGameState,
     makeMockGame
   ) where
 

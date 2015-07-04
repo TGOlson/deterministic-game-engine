@@ -29,6 +29,8 @@ Simple generic example below. See the specs for a more detailed example.
 
 -}
 
+{-# LANGUAGE RankNTypes #-}
+
 
 module GameEngine (
     Symbol,
@@ -37,10 +39,13 @@ module GameEngine (
     Move(..),
     GameActions(..),
     GameEngine(..),
-    play
+    play,
+    playSimple,
+    playIO
   ) where
 
 
+import Control.Monad.Identity
 import GameEngine.GameState
 import GameEngine.GameActions
 import GameEngine.Move
@@ -57,11 +62,26 @@ data GameEngine a b = GameEngine {
 -- ^ Holds information about how the game is played, and the current state of the game.
 
 
-play :: GameEngine a b -> Int
--- ^ Run the provided game engine until a terminal state is reached.
-play engine
-  | performWithState isTerminal engine = performWithState getScore engine $ performWithState getPlayer engine
-  | otherwise = play $ GameEngine (actions engine) (getNextState engine)
+-- TODO: provided function should be forced to be an identity only function
+-- forall a. a -> m a
+play :: Monad m => (GameState a -> m (GameState a)) -> GameEngine a b -> m Int
+-- ^ Run the provided game engine under a monadic context until a terminal state is reached.
+-- Note: provided function should act as an identity only, and should not modify the game state.
+play f engine
+  | performWithState isTerminal engine = return . performWithState getScore engine $ performWithState getPlayer engine
+  | otherwise = do
+    nextState <- f $ getNextState engine
+    play f $ GameEngine (actions engine) nextState
+
+
+playSimple :: GameEngine a b -> Int
+-- ^ Run the provided game engine without a context until a terminal state is reached.
+playSimple = runIdentity . play Identity
+
+
+playIO :: (GameState a -> IO ()) -> GameEngine a b -> IO Int
+-- ^ Run the provided game engine within an IO context until a terminal state is reached.
+playIO f = play (\x -> f x >> return x)
 
 
 getNextState :: GameEngine a b -> GameState a
