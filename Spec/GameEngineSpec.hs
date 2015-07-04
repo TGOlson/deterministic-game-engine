@@ -12,7 +12,6 @@ main :: IO ()
 main = hspec spec
 
 
-
 tieGame :: MockGame
 tieGame = makeMockGame 0
 

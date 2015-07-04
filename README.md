@@ -19,6 +19,7 @@ Haskell library for creating simple deterministic games, such as tic-tac-toe. Th
 
 See the [MockGame](https://github.com/TGOlson/deterministic-game-engine/blob/master/Spec/MockGame.hs) and associated [spec](https://github.com/TGOlson/deterministic-game-engine/blob/master/Spec/GameEngineSpec.hs) for an example on how to build a simple game using the game engine.
 
+### Development
 
 Install dependencies
 

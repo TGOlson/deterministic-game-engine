@@ -13,6 +13,7 @@ import GameEngine
 
 
 type MockGame = GameEngine Int Int
+type MockGameState = GameState Int
 
 
 oddPlayer :: Player
@@ -23,20 +24,20 @@ evenPlayer :: Player
 evenPlayer = Player '2'
 
 
-getNextPlayer :: GameState Int -> Player
+getNextPlayer :: MockGameState -> Player
 getNextPlayer (GameState x) = if odd x then evenPlayer else oddPlayer
 
 
-isTerminalFn :: Int -> GameState Int -> Bool
+isTerminalFn :: Int -> MockGameState -> Bool
 isTerminalFn maxMoves (GameState x) = x >= maxMoves
 
 
-getGameScore :: GameState Int -> Player -> Int
+getGameScore :: MockGameState -> Player -> Int
 getGameScore (GameState 0) _ = 0
 getGameScore (GameState x) _ = if odd x then 1 else -1
 
 
-initialGameState :: GameState Int
+initialGameState :: MockGameState
 initialGameState = GameState 0
 
 
@@ -48,7 +49,7 @@ makeGameActions :: Int -> GameActions Int Int
 makeGameActions numMoves = GameActions {
     getPlayer  = getNextPlayer,
 
-    -- only valid move is adding 1
+    -- only valid move in this game is adding 1
     getMoves   = const [Move 1],
     getResult  = \(GameState s) (Move x) -> GameState (s + x),
     isTerminal = isTerminalFn numMoves,
