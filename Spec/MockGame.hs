@@ -10,7 +10,7 @@ module MockGame (
   ) where
 
 
-import GameEngine
+import           GameEngine
 
 
 type MockGame = GameEngine Int Int

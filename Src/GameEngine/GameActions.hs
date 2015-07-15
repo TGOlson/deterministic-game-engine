@@ -3,9 +3,9 @@ module GameEngine.GameActions (
   ) where
 
 
-import GameEngine.Player
-import GameEngine.Move
-import GameEngine.GameState
+import           GameEngine.GameState
+import           GameEngine.Move
+import           GameEngine.Player
 
 
 data GameActions a b = GameActions {

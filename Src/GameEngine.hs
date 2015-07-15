@@ -45,11 +45,11 @@ module GameEngine (
   ) where
 
 
-import Control.Monad.Identity
-import GameEngine.GameState
-import GameEngine.GameActions
-import GameEngine.Move
-import GameEngine.Player
+import           Control.Monad.Identity
+import           GameEngine.GameActions
+import           GameEngine.GameState
+import           GameEngine.Move
+import           GameEngine.Player
 
 
 data GameEngine a b = GameEngine {

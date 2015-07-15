@@ -3,9 +3,9 @@
 module GameEngineSpec where
 
 
-import Test.Hspec
-import GameEngine
-import MockGame
+import           GameEngine
+import           MockGame
+import           Test.Hspec
 
 
 main :: IO ()
