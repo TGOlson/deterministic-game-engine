@@ -13,7 +13,7 @@ module MockGame (
 import           GameEngine
 
 
-type MockGame = GameEngine Int Int
+type MockGame m = GameEngine m Int Int
 type MockGameState = GameState Int
 
 
@@ -25,34 +25,34 @@ evenPlayer :: Player
 evenPlayer = Player '2'
 
 
-getNextPlayer :: MockGameState -> Player
-getNextPlayer (GameState x) = if odd x then evenPlayer else oddPlayer
+getNextPlayer :: Monad m => MockGameState -> m Player
+getNextPlayer (GameState x) = return $ if odd x then evenPlayer else oddPlayer
 
 
-isTerminalFn :: Int -> MockGameState -> Bool
-isTerminalFn maxMoves (GameState x) = x >= maxMoves
+isTerminalFn :: Monad m => Int -> MockGameState -> m Bool
+isTerminalFn maxMoves (GameState x) = return $ x >= maxMoves
 
 
-getGameScore :: MockGameState -> Player -> Int
-getGameScore (GameState 0) _ = 0
-getGameScore (GameState x) _ = if odd x then 1 else -1
+getGameScore :: Monad m => MockGameState -> Player -> m Int
+getGameScore (GameState 0) _ = return 0
+getGameScore (GameState x) _ = return $ if odd x then 1 else -1
 
 
 initialGameState :: MockGameState
 initialGameState = GameState 0
 
 
-makeMockGame :: Int -> MockGame
+makeMockGame :: Monad m => Int -> MockGame m
 makeMockGame numMoves = GameEngine (makeGameActions numMoves) initialGameState
 
 
-makeGameActions :: Int -> GameActions Int Int
+makeGameActions :: Monad m => Int -> GameActions m Int Int
 makeGameActions numMoves = GameActions {
     getPlayer  = getNextPlayer,
 
     -- only valid move in this game is adding 1
-    getMove    = const $ Move 1,
-    getResult  = \(GameState s) (Move x) -> GameState (s + x),
+    getMove    = const . return $ Move 1,
+    getResult  = \(GameState s) (Move x) -> return $ GameState (s + x),
     isTerminal = isTerminalFn numMoves,
     getScore   = getGameScore
   }

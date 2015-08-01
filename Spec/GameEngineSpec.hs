@@ -12,25 +12,25 @@ main :: IO ()
 main = hspec spec
 
 
-tieGame :: MockGame
+tieGame :: Monad m => MockGame m
 tieGame = makeMockGame 0
 
 
-oddWins :: MockGame
+oddWins :: Monad m => MockGame m
 oddWins = makeMockGame 3
 
 
-evenWins :: MockGame
+evenWins :: Monad m => MockGame m
 evenWins = makeMockGame 4
 
 
 spec :: Spec
 spec = do
   describe "play" $
-    it "should play the provided game within the provided context" $ do
-      play (:[]) tieGame  `shouldBe` [0]
-      play (:[]) oddWins  `shouldBe` [1]
-      play (:[]) evenWins `shouldBe` [-1]
+    it "should play the provided game within a specific context" $ do
+      play tieGame  `shouldBe` [0]
+      play oddWins  `shouldBe` [1]
+      play evenWins `shouldBe` [-1]
 
   describe "playSimple" $
     it "should play the provided game without a context" $ do
@@ -40,6 +40,6 @@ spec = do
 
   describe "playIO" $
     it "should play the provided game within an IO context" $ do
-      playIO print tieGame  `shouldReturn`  0
-      playIO print oddWins  `shouldReturn`  1
-      playIO print evenWins `shouldReturn` -1
+      playIO tieGame  `shouldReturn`  0
+      playIO oddWins  `shouldReturn`  1
+      playIO evenWins `shouldReturn` -1

@@ -39,6 +39,8 @@ module GameEngine (
     Move(..),
     GameActions(..),
     GameEngine(..),
+    GameEngineSimple,
+    GameEngineIO,
     play,
     playSimple,
     playIO
@@ -52,8 +54,8 @@ import           GameEngine.Move
 import           GameEngine.Player
 
 
-data GameEngine a b = GameEngine {
-    actions :: GameActions a b,
+data GameEngine m a b = GameEngine {
+    actions :: GameActions m a b,
     -- ^ Defines how the game will be played
 
     state   :: GameState a
@@ -62,29 +64,40 @@ data GameEngine a b = GameEngine {
 -- ^ Holds information about how the game is played, and the current state of the game.
 
 
--- TODO: provided function should be forced to be an identity only function
--- forall a. a -> m a
-play :: Monad m => (GameState a -> m (GameState a)) -> GameEngine a b -> m Int
+type GameEngineSimple a b = GameEngine Identity a b
+type GameEngineIO a b = GameEngine IO a b
+
+
+play :: Monad m => GameEngine m a b -> m Int
 -- ^ Run the provided game engine under a monadic context until a terminal state is reached.
--- Note: provided function should act as an identity only, and should not modify the game state.
-play f engine
-  | performWithState isTerminal engine = return . performWithState getScore engine $ performWithState getPlayer engine
-  | otherwise = f (getNextState engine) >>= play f . GameEngine (actions engine)
+play engine = do
+  isTerm <- isTerminal gameActions gameState
+
+  if isTerm then do
+    player <- getPlayer gameActions gameState
+    getScore gameActions gameState player
+    else do
+      nextState <- getNextState engine
+      play $ GameEngine (actions engine) nextState
+  where
+    gameActions = actions engine
+    gameState = state engine
 
 
-playSimple :: GameEngine a b -> Int
+playSimple :: GameEngineSimple a b -> Int
 -- ^ Run the provided game engine without a context until a terminal state is reached.
-playSimple = runIdentity . play Identity
+playSimple = runIdentity . play
 
 
-playIO :: (GameState a -> IO ()) -> GameEngine a b -> IO Int
+playIO :: GameEngineIO a b -> IO Int
 -- ^ Run the provided game engine within an IO context until a terminal state is reached.
-playIO f = play (\x -> f x >> return x)
+playIO = play
 
 
-getNextState :: GameEngine a b -> GameState a
-getNextState engine = performWithState getResult engine $ performWithState getMove engine
-
-
-performWithState :: (GameActions a b -> GameState a -> c) -> GameEngine a b -> c
-performWithState f engine = f (actions engine) $ state engine
+getNextState :: Monad m => GameEngine m a b -> m (GameState a)
+getNextState engine = do
+  nextMove <- getMove gameActions gameState
+  getResult gameActions gameState nextMove
+  where
+    gameActions = actions engine
+    gameState = state engine
