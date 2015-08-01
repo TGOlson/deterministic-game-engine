@@ -7,12 +7,12 @@ until a terminal state is reached.
 
 Simple generic example below. See the specs for a more detailed example.
 
-> import GameEngine
+> import Game.Deterministic.GameEngine
 >
-> game :: GameEngine Int Int
+> game :: Monad m => GameEngine m Int Int
 > game = GameEngine gameActions initialState
 >
-> gameActions :: GameActions Int Int
+> gameActions :: Monad m => GameActions m Int Int
 > gameActions = GameActions {
 >    getPlayer  = -- find the next player from a game state,
 >    getMove    = -- find a move from the game state,
