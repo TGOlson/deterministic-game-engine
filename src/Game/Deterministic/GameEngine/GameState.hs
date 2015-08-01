@@ -1,4 +1,4 @@
-module GameEngine.GameState (
+module Game.Deterministic.GameEngine.GameState (
     GameState(..)
   ) where
 

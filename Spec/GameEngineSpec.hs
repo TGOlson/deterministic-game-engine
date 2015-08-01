@@ -3,7 +3,7 @@
 module GameEngineSpec where
 
 
-import           GameEngine
+import           Game.Deterministic.GameEngine
 import           MockGame
 import           Test.Hspec
 

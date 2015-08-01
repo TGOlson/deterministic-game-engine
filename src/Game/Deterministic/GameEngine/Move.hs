@@ -1,4 +1,4 @@
-module GameEngine.Move (
+module Game.Deterministic.GameEngine.Move (
     Move(..)
   ) where
 

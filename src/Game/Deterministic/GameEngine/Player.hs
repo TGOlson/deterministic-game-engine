@@ -1,4 +1,4 @@
-module GameEngine.Player (
+module Game.Deterministic.GameEngine.Player (
     Symbol,
     Player(..)
   ) where

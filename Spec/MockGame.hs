@@ -10,7 +10,7 @@ module MockGame (
   ) where
 
 
-import           GameEngine
+import           Game.Deterministic.GameEngine
 
 
 type MockGame m = GameEngine m Int Int
@@ -45,6 +45,11 @@ initialGameState = GameState 0
 makeMockGame :: Monad m => Int -> MockGame m
 makeMockGame numMoves = GameEngine (makeGameActions numMoves) initialGameState
 
+
+getMoveIO :: GameState a -> IO (Move Int)
+getMoveIO _ = do
+  i <- getLine
+  return $ Move $ read i
 
 makeGameActions :: Monad m => Int -> GameActions m Int Int
 makeGameActions numMoves = GameActions {

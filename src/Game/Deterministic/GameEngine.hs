@@ -32,7 +32,7 @@ Simple generic example below. See the specs for a more detailed example.
 {-# LANGUAGE RankNTypes #-}
 
 
-module GameEngine (
+module Game.Deterministic.GameEngine (
     Symbol,
     GameState(..),
     Player(..),
@@ -48,10 +48,10 @@ module GameEngine (
 
 
 import           Control.Monad.Identity
-import           GameEngine.GameActions
-import           GameEngine.GameState
-import           GameEngine.Move
-import           GameEngine.Player
+import           Game.Deterministic.GameEngine.GameActions
+import           Game.Deterministic.GameEngine.GameState
+import           Game.Deterministic.GameEngine.Move
+import           Game.Deterministic.GameEngine.Player
 
 
 data GameEngine m a b = GameEngine {

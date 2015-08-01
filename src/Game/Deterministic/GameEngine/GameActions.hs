@@ -1,11 +1,11 @@
-module GameEngine.GameActions (
+module Game.Deterministic.GameEngine.GameActions (
     GameActions(..)
   ) where
 
 
-import           GameEngine.GameState
-import           GameEngine.Move
-import           GameEngine.Player
+import           Game.Deterministic.GameEngine.GameState
+import           Game.Deterministic.GameEngine.Move
+import           Game.Deterministic.GameEngine.Player
 
 
 data GameActions m a b = GameActions {
