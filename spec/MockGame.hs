@@ -18,11 +18,11 @@ type MockGameState = GameState Int
 
 
 oddPlayer :: Player
-oddPlayer = Player '1'
+oddPlayer = Player "1"
 
 
 evenPlayer :: Player
-evenPlayer = Player '2'
+evenPlayer = Player "2"
 
 
 getNextPlayer :: Monad m => MockGameState -> m Player
